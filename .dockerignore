@@ -1,0 +1,15 @@
+# Files to ignore, to keep the context size from running away on us.
+
+*.zip
+.git
+.gitignore
+LICENSE
+README.md
+
+# These will be test volumes
+apps
+extensions
+
+# Avoid copying these into the image since they will be in the volume
+exb-beta-snapshot/client/your-extensions
+arcgis-experience-builder*/client/your-extensions
