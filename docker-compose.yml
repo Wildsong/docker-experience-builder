@@ -14,15 +14,21 @@ services:
       - proxy_net
     ports:
       - 3001:3001
-#    volumes:
-#
+    volumes:
+      - exb_public:/home/node/server/src/public
     restart: unless-stopped
     build:
+      args:
+        snapshot: arcgis-experience-builder-beta2
       context: .
       dockerfile: Dockerfile
    
-#volumes:
-#
+volumes:
+  exb_public:
+    name: exb_public
+  exb_widgets:
+    name: exb_widgets
+    
 networks:
   # This is a network we share with our reverse proxy
   proxy_net:

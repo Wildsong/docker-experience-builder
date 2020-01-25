@@ -1,12 +1,15 @@
 # docker-experience-builder
-Create a Docker image for ESRI ArcGIS Experience Builder
+Run ESRI ArcGIS Experience Builder in a Docker container
 
 2020-01-24-- As of today ESRI is at at Beta2 and that's what I support here.
+
+ESRI GAVE US A USELESS BETA. You can use it to try out what they are developing but
+you cannot download or deploy a project. Maybe it will start to be useful at beta 3??
+Now that I've seen it, I am going to wait it out.
 
 I honestly can't tell what the license requirements are on Experience Builder
 so I am assuming it needs to be locked down and not trying to include a downloader
 in this project for now.
-
 
 ## Prerequisites 
 
@@ -16,7 +19,6 @@ in this project for now.
 The "organization" account can be one that you set up with the (free)
 developer program.  Go to https://developer.esri.com/ -- the
 "personal" account you get at arcgis.com is pretty much useless.
-
 
 # Set up
 
@@ -49,7 +51,6 @@ docker-compose build
 ```bash
 docker-compose up
 ```
-
 "Restart" is built in to the docker-compose.yml file so
 the service will restart every time you reboot the server. To get it to stop, use
 
@@ -59,19 +60,20 @@ docker-compose down
 
 ### Volumes for storage
 
-You will want a couple volumes hooked up to the container, one for
-widgets and one for the app files that will be shared with a web
-server.
+exb_public will be mounted in the server, and the first time you run
+you will be prompted for portalName and clientId. Those will be stored into
+the exb_public volume as signin-info.json. Then you will give approval
+on the next page and the second file, setting.json, will be written into
+an internal location client/dist/builder/setting.json.
 
-In development I am keeping them here in the folder, widgets and apps.
+On subsequent restarts the server should remember everything.
+
+Your work will be saved under the exb_public volume in the apps folder,
+but these files are not intended for human consumption :-) only for EXB.
 
 ## Portal set up
 
-Once it is up and running you still have to connect it to Portal.
-Connect to EXB first from a browser (e.g. http://yourdockerserver:3001/webappbuilder/) and
-enter the URL of your Portal and an AppId (from Portal). On the Portal
-side you have to set up a new App and get the AppId. Complete
-relatively good instructions are on the ESRI web site under Quick Start.
+On the Portal side you have to set up a new App and get the AppId. 
 
 In Portal,
 * Content tab->My Content
@@ -79,15 +81,19 @@ In Portal,
 * Type of application: Web Mapping
 * Purpose: Ready to use
 * API: Javascript
-* URL: http://yourdocker:3001/exb
+* URL: https://yourdocker:3001/
 * Title: whatever you like
 * Tags: whatever...
 Then you have to co into the settings for the new "Web Mapping Application"
 and "register" to get an AppId. Under "App Registration",
 * App Type: Browser
-* Redirect URI: I used http://yourdocker.yourdomain
+* Redirect URI: I used http://yourdocker:3001/ (no domain). You can put in more than one...
 
-That gets you the AppId which you can take back to the WAB web page.
+That gets you the AppId which you can take back to the EXB web page.
+
+Once EXB is running you still have to connect it to Portal.
+Open a browser (e.g. http://yourdockerserver:3001/) and
+enter the URL of your Portal and an AppId (from Portal).
 
 To change the client ID later, I had to delete signininfo.json
 file from the Docker and restart it.

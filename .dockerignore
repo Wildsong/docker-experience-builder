@@ -5,6 +5,8 @@
 .gitignore
 LICENSE
 README.md
+sample.env
+.env
 
 # These will be test volumes
 apps

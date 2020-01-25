@@ -4,5 +4,11 @@
       "portalUrl": "https://www.arcgis.com",
       "clientId": "experienceBuilder"
     }
+  },
+  "devEnv": {
+    "prod": {
+      "portalUrl": "https://delta.co.clatsop.or.us/portal",
+      "clientId": "MhF1lRR741nAhN8Q"
+    }
   }
 }
