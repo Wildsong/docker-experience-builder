@@ -6,12 +6,14 @@ services:
     env_file: .env
     environment:
       VIRTUAL_HOST: ${EXB_VIRTUAL_HOST}
-      VIRTUAL_PORT: 3001
+      VIRTUAL_PORT: 3000
       NETWORK_ACCESS: internal
 #      LETSENCRYPT_HOST: ${EXB_VIRTUAL_HOST}
 #      LETSENCRYPT_MAIL: ${MY_EMAIL}
     networks:
       - proxy_net
+    expose:
+      - 3000
     ports:
       - 3001:3001
     volumes:
@@ -19,7 +21,7 @@ services:
     restart: unless-stopped
     build:
       args:
-        snapshot: arcgis-experience-builder-beta2
+        snapshot: ArcGISExperienceBuilder
       context: .
       dockerfile: Dockerfile
    

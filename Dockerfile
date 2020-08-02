@@ -1,26 +1,24 @@
-FROM node:10
-MAINTAINER Brian H Wilson "brian@wildsong.biz"
+FROM node:12
+LABEL maintainer="Brian H Wilson brian@wildsong.biz"
 
-ARG snapshot
-
+ARG snapshot=ArcGISExperienceBuilder
 USER node
-ADD --chown=node ${snapshot} /home/node/
-
-# Install the node project
+WORKDIR /home/node
+ADD --chown=node ${snapshot} .
 WORKDIR /home/node/server
-RUN npm ci
 
-# Make way for our widgets
-#WORKDIR /home/node/extensions
-#RUN cd client && \
-#    rm -rf your-extensions && \
-#    ln -s ../extensions your-extensions
+# react and acorn are peer dependencies so I install them explicitly
+RUN npm install react && \
+    npm install acorn && \
+    npm install && npm audit fix
 
-RUN mkdir -p /home/node/server/src/public
+# I played around with doing a multistage build
+# but it did not seem to buy me anything.
+
+RUN mkdir -p src/public
 VOLUME /home/node/server/src/public
 
+WORKDIR /home/node
 EXPOSE 3000/tcp
 EXPOSE 3001/tcp
-
-WORKDIR /home/node
-CMD node server/src/server.js
+CMD ["node", "server/src/server.js"]
