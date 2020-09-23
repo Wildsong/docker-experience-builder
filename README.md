@@ -1,9 +1,9 @@
 # docker-experience-builder
 Create a Docker image for ESRI ArcGIS Experience Builder
 
-2020-08-01 As of today ESRI is at at version 1.1 and that's what I support here.
+2020-09-23 As of today ESRI is at version 1.1 and that's what I support here.
 
-I honestly can't tell what the license requirements are on Experience
+I can't tell what the license requirements are on Experience
 Builder so I am assuming it needs to be locked down and so I am not
 trying to include a downloader in this project for now.
 
@@ -17,19 +17,17 @@ developer program.  Go to https://developers.esri.com/ -- the
 "personal" account you get at arcgis.com is pretty much useless because
 it does not allow the full range of features you need for creating content.
 
-
 # Set up
 
-## Download and unzip.
+## Download.
 
-This project will not download licensed code from Esri.
+This project will not download the zip from Esri.
 Use your ESRI account to do the download first.
 
-Find the ZIP file at the ESRI site [Web App Builder](https://developers.arcgis.com/web-appbuilder/) 
+Find the ZIP file at the ESRI site [Experience Builder](https://developers.arcgis.com/experience-builder/) 
 Sign in and then look in the API/SDK link until you find Experience Builder and download it.
-Unzip the file here in this folder.
 
-When done you should have a folder "ArcGISExperienceBuilder".
+When done you should have a file "arcgis-experience-builder-1.1.zip".
 If they have changed the name again, update it in docker-compose.yml.
 
 ## Networking note
@@ -38,7 +36,7 @@ I run this service directly on the local network (no proxy) at the default ports
 You might do it some other way.  
 
 Port 3000 would be used if you want to put a reverse proxy in front of it.
-Port 3001 uses a self-signed certificate and is exposed.
+Port 3001 uses a self-signed certificate and is exposed on the internal network.
 
 ## Build image
 
@@ -49,7 +47,7 @@ docker-compose build
 ## Run
 
 ```bash
-docker-compose up
+docker-compose up -d
 ```
 
 "Restart" is built in to the docker-compose.yml file so

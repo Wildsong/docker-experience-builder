@@ -1,4 +1,16 @@
 version: '3.6'
+volumes:
+  exb_public:
+    name: exb_public
+  exb_widgets:
+    name: exb_widgets
+    
+networks:
+  # This is a network we share with our reverse proxy
+  proxy_net:
+    # Won't be created or destroyed with docker-compose up|down
+    external: true
+
 services:
   exb:
     container_name: exb
@@ -12,27 +24,14 @@ services:
 #      LETSENCRYPT_MAIL: ${MY_EMAIL}
     networks:
       - proxy_net
-    expose:
-      - 3000
     ports:
       - 3001:3001
     volumes:
       - exb_public:/home/node/server/src/public
     restart: unless-stopped
     build:
-      args:
-        snapshot: ArcGISExperienceBuilder
       context: .
+      args:
+        snapshot: arcgis-experience-builder-1.1.zip
       dockerfile: Dockerfile
    
-volumes:
-  exb_public:
-    name: exb_public
-  exb_widgets:
-    name: exb_widgets
-    
-networks:
-  # This is a network we share with our reverse proxy
-  proxy_net:
-    # Won't be created or destroyed with docker-compose up|down
-    external: true

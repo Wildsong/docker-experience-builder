@@ -1,6 +1,5 @@
 # Files to ignore, to keep the context size from running away on us.
 
-*.zip
 .git
 .gitignore
 LICENSE
