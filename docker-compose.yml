@@ -1,37 +1,35 @@
 version: '3.6'
+
 volumes:
   exb_public:
     name: exb_public
   exb_widgets:
     name: exb_widgets
     
-networks:
-  # This is a network we share with our reverse proxy
-  proxy_net:
-    # Won't be created or destroyed with docker-compose up|down
-    external: true
-
 services:
   exb:
-    container_name: exb
     image: exb
     env_file: .env
     environment:
-      VIRTUAL_HOST: ${EXB_VIRTUAL_HOST}
-      VIRTUAL_PORT: 3000
+#      VIRTUAL_HOST: ${EXB_VIRTUAL_HOST}
+#      VIRTUAL_PORT: 3000
       NETWORK_ACCESS: internal
 #      LETSENCRYPT_HOST: ${EXB_VIRTUAL_HOST}
 #      LETSENCRYPT_MAIL: ${MY_EMAIL}
-    networks:
-      - proxy_net
     ports:
+      # https://cc-testmaps:3001
       - 3001:3001
     volumes:
       - exb_public:/home/node/server/src/public
-    restart: unless-stopped
     build:
       context: .
       args:
-        snapshot: arcgis-experience-builder-1.1.zip
+        snapshot: arcgis-experience-builder-1.6.zip
       dockerfile: Dockerfile
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        window: 15s
    
