@@ -1,14 +1,8 @@
 version: '3.6'
-
-volumes:
-  exb_public:
-    name: exb_public
-  exb_widgets:
-    name: exb_widgets
     
 services:
-  exb:
-    image: exb
+  exb-server:
+    image: exb-server
     env_file: .env
     environment:
 #      VIRTUAL_HOST: ${EXB_VIRTUAL_HOST}
@@ -20,12 +14,38 @@ services:
       # https://cc-testmaps:3001
       - 3001:3001
     volumes:
-      - exb_public:/home/node/server/src/public
+      - ./public:/home/node/server/src/public
     build:
       context: .
       args:
         snapshot: arcgis-experience-builder-1.6.zip
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.server
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        window: 15s
+        
+  exb-client:
+    image: exb-client
+    env_file: .env
+    environment:
+#      VIRTUAL_HOST: ${EXB_VIRTUAL_HOST}
+#      VIRTUAL_PORT: 3000
+      NETWORK_ACCESS: internal
+#      LETSENCRYPT_HOST: ${EXB_VIRTUAL_HOST}
+#      LETSENCRYPT_MAIL: ${MY_EMAIL}
+    #ports:
+      # https://cc-testmaps:3001
+#      - 3001:3001
+    volumes:
+      - ./public:/home/node/server/src/public
+    build:
+      context: .
+      args:
+        snapshot: arcgis-experience-builder-1.6.zip
+      dockerfile: Dockerfile.client
     deploy:
       mode: global
       restart_policy:

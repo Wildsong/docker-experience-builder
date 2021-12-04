@@ -3,6 +3,14 @@ Create a Docker image for ESRI ArcGIS Experience Builder
 
 2021-12-03 As of today ESRI is at version 1.6 and that's what I support here.
 
+*********************************************************
+NOT WORKING
+I don't know how to run the two part thing with a separate
+server and webpack client in dockers yet so for now I am just
+running it on the host
+*********************************************************
+
+
 I can't tell what the license requirements are on Experience
 Builder so I am assuming it needs to be locked down and so I am not
 trying to include a downloader in this project for now.
@@ -56,6 +64,16 @@ To get it to stop, use
 
 ```bash
 docker stack remove exb
+```
+
+### Client install
+
+I don't know what the client is yet, I just note that these instructions exist...
+
+```bash
+docker exec -ti exb_tab<TAB> bash
+cd client
+npm ci
 ```
 
 ### Volumes for storage
