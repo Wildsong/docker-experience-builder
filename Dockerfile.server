@@ -11,7 +11,6 @@ RUN unzip ${snapshot} && \
 
 WORKDIR /home/node/ArcGISExperienceBuilder/server/
 
-# react and acorn are peer dependencies so I install them explicitly
 RUN npm ci && npm audit fix
 
 RUN mkdir -p src/public
@@ -20,5 +19,5 @@ RUN mkdir -p src/public
 EXPOSE 3000/tcp
 EXPOSE 3001/tcp
 
-WORKDIR /home/node/ArcGISExperienceBuilder
-ENTRYPOINT ["node", "server/src/server.js"]
+WORKDIR /home/node/ArcGISExperienceBuilder/server
+

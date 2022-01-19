@@ -1,7 +1,7 @@
-version: '3.6'
+version: '3.7'
     
 services:
-  exb-server:
+  server:
     image: exb-server
     env_file: .env
     environment:
@@ -14,20 +14,16 @@ services:
       # https://cc-testmaps:3001
       - 3001:3001
     volumes:
-      - ./public:/home/node/server/src/public
+      - ./public:/home/node/ArcGISExperienceBuilder/server/public
     build:
       context: .
       args:
-        snapshot: arcgis-experience-builder-1.6.zip
+        snapshot: arcgis-experience-builder-1.7.zip
       dockerfile: Dockerfile.server
-    deploy:
-      mode: global
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        window: 15s
+    command: ["npm", "start"]
+    # command: node src/server.js
         
-  exb-client:
+  client:
     image: exb-client
     env_file: .env
     environment:
@@ -40,16 +36,11 @@ services:
       # https://cc-testmaps:3001
 #      - 3001:3001
     volumes:
-      - ./public:/home/node/server/src/public
+      - ./public:/home/node/ArcGISExperienceBuilder/server/public
     build:
       context: .
       args:
-        snapshot: arcgis-experience-builder-1.6.zip
+        snapshot: arcgis-experience-builder-1.7.zip
       dockerfile: Dockerfile.client
-    deploy:
-      mode: global
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        window: 15s
+    command: ["npm", "start"]
    

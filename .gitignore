@@ -1,7 +1,8 @@
 *.zip
 ArcGISExperienceBuilder
 extensions
-settings.json
+signin-info.json
+public
 
 # Logs
 logs

@@ -23,4 +23,3 @@ EXPOSE 3001/tcp
 WORKDIR /home/node/ArcGISExperienceBuilder/client
 RUN npm ci
 
-ENTRYPOINT ["npm", "start"]
