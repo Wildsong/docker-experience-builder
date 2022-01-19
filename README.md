@@ -1,11 +1,11 @@
 # docker-experience-builder
-Create a Docker image for ESRI ArcGIS Experience Builder
+ESRI ArcGIS "Experience Builder, Developer Edition" running in Docker.
 
-2022-01-18 As of today ESRI is at version 1.7 and that's what I support here. I am using node version 12.
+2022-01-18 Updates for version 1.7. Using node version 12.
 
 I can't tell what the license requirements are on Experience
 Builder. I assume it needs to be locked down so I do not
-include a downloader in this project for now.
+include an automatic downloader in this project for now.
 
 ## Prerequisites 
 
@@ -19,9 +19,6 @@ developer program.  Go to https://developers.esri.com/ -- the
 ## Set up
 
 ### Download
-
-This project will not download the zip from Esri.
-You must use your ESRI account to do the download first.
 
 Find the ZIP file at the ESRI site [Experience Builder](https://developers.arcgis.com/experience-builder/) 
 Sign in and then look in the API/SDK link until you find Experience Builder and download it.
@@ -49,7 +46,12 @@ Currently I am using Docker Compose for this, so, to launch it I use:
 docker-compose up -d
 ```
 
-To get it to stop, use
+This starts two containers, "experience-builder_server_1"
+and "experiece-builder_client_1". The "server" is the web server
+that you connect to via browser. It is my understanding that the
+so-called "client" just runs webpack to compile your applications.
+
+To get EXB to stop, use
 
 ```bash
 docker-compose down
@@ -57,9 +59,11 @@ docker-compose down
 
 ### Volumes for storage
 
-You will want a couple volumes hooked up to the container, one for
-widgets and one for the app files that will be shared with a web
-server. The provided docker-compose file will create them automatically.
+Currently there is just one container in use, and with
+this docker-compose.yml it will be mounted onto the local public
+folder. After initial set up your settings will be in
+public/signin-info.json. After creating apps, they will be stored
+in public/apps/.
 
 ## Portal (or ArcGIS.com) set up
 

@@ -10,14 +10,9 @@ RUN unzip ${snapshot} && \
     rm ${snapshot}
 
 WORKDIR /home/node/ArcGISExperienceBuilder/server/
-
-RUN npm ci && npm audit fix
-
 RUN mkdir -p src/public
 #VOLUME /home/node/server/src/public
 
-EXPOSE 3000/tcp
-EXPOSE 3001/tcp
+RUN npm ci && npm audit fix
 
-WORKDIR /home/node/ArcGISExperienceBuilder/server
 

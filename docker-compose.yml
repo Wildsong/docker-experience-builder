@@ -11,6 +11,8 @@ services:
 #      LETSENCRYPT_HOST: ${EXB_VIRTUAL_HOST}
 #      LETSENCRYPT_MAIL: ${MY_EMAIL}
     ports:
+      # http://cc-testmaps:3000
+      #- 3000:3000
       # https://cc-testmaps:3001
       - 3001:3001
     volumes:
@@ -25,16 +27,6 @@ services:
         
   client:
     image: exb-client
-    env_file: .env
-    environment:
-#      VIRTUAL_HOST: ${EXB_VIRTUAL_HOST}
-#      VIRTUAL_PORT: 3000
-      NETWORK_ACCESS: internal
-#      LETSENCRYPT_HOST: ${EXB_VIRTUAL_HOST}
-#      LETSENCRYPT_MAIL: ${MY_EMAIL}
-    #ports:
-      # https://cc-testmaps:3001
-#      - 3001:3001
     volumes:
       - ./public:/home/node/ArcGISExperienceBuilder/server/public
     build:
