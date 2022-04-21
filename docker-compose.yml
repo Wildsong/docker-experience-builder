@@ -11,28 +11,29 @@ services:
 #      LETSENCRYPT_HOST: ${EXB_VIRTUAL_HOST}
 #      LETSENCRYPT_MAIL: ${MY_EMAIL}
     ports:
-      # http://cc-testmaps:3000
-      #- 3000:3000
+      #http://cc-testmaps:3000
+      - 3000:3000
       # https://cc-testmaps:3001
       - 3001:3001
     volumes:
-      - ./public:/home/node/ArcGISExperienceBuilder/server/public
+      - ./public:/home/node/server/public
     build:
       context: .
-      args:
-        snapshot: arcgis-experience-builder-1.7.zip
       dockerfile: Dockerfile.server
     command: ["npm", "start"]
     # command: node src/server.js
-        
+
+    # for docker-compose
+    restart: unless-stopped
+    
   client:
     image: exb-client
     volumes:
-      - ./public:/home/node/ArcGISExperienceBuilder/server/public
+      - ./public:/home/node/server/public
     build:
       context: .
-      args:
-        snapshot: arcgis-experience-builder-1.7.zip
       dockerfile: Dockerfile.client
     command: ["npm", "start"]
    
+    # for docker-compose
+    restart: unless-stopped
