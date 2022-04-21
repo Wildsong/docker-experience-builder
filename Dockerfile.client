@@ -3,16 +3,8 @@ LABEL maintainer="Brian H Wilson brian@wildsong.biz"
 
 USER node
 WORKDIR /home/node
+ADD --chown=node ./ArcGISExperienceBuilder/ /home/node/
 
-ARG snapshot
-ADD --chown=node ${snapshot} .
-RUN unzip ${snapshot} && \
-    rm ${snapshot}
-
-WORKDIR /home/node/ArcGISExperienceBuilder/server/
-RUN mkdir -p src/public
-#VOLUME /home/node/server/src/public
-
-WORKDIR /home/node/ArcGISExperienceBuilder/client
+WORKDIR /home/node/client
 RUN npm ci && npm audit fix
 
