@@ -1,4 +1,4 @@
-FROM node:12
+FROM node:18
 LABEL maintainer="Brian H Wilson brian@wildsong.biz"
 
 USER node
@@ -6,5 +6,6 @@ WORKDIR /home/node
 ADD --chown=node ./ArcGISExperienceBuilder/ /home/node/
 
 WORKDIR /home/node/client
-RUN npm ci && npm audit fix
-
+RUN npm install
+# The package 'quill' breaks this
+#RUN npm audit fix --omit=dev

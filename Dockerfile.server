@@ -1,4 +1,4 @@
-FROM node:12
+FROM node:18
 LABEL maintainer="Brian H Wilson brian@wildsong.biz"
 
 USER node
@@ -9,4 +9,5 @@ RUN mkdir -p server/public
 #VOLUME /home/node/server/src/public
 
 WORKDIR /home/node/server/
-RUN npm ci && npm audit fix
+RUN npm install
+RUN npm audit fix
