@@ -1,15 +1,16 @@
-version: '3.7'
-    
+version: "3.9"
+
+networks:
+  proxy:
+    name: ${NETWORK_NAME}
+    external: true
+
 services:
   server:
     image: exb-server
     env_file: .env
     environment:
-#      VIRTUAL_HOST: ${EXB_VIRTUAL_HOST}
-#      VIRTUAL_PORT: 3000
       NETWORK_ACCESS: internal
-#      LETSENCRYPT_HOST: ${EXB_VIRTUAL_HOST}
-#      LETSENCRYPT_MAIL: ${MY_EMAIL}
     ports:
       #http://cc-testmaps:3000
       - 3000:3000
@@ -22,18 +23,19 @@ services:
       dockerfile: Dockerfile.server
     command: ["npm", "start"]
     # command: node src/server.js
-
-    # for docker-compose
+    networks:
+      proxy:
+        aliases:
+          - exb
     restart: unless-stopped
     
   client:
     image: exb-client
     volumes:
       - ./public:/home/node/server/public
+      - ./client-extensions:/home/node/client/your-extensions
     build:
       context: .
       dockerfile: Dockerfile.client
     command: ["npm", "start"]
-   
-    # for docker-compose
     restart: unless-stopped

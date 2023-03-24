@@ -5,7 +5,10 @@ USER node
 WORKDIR /home/node
 ADD --chown=node ./ArcGISExperienceBuilder/ /home/node/
 
+VOLUME /home/node/client/your-extensions
+
 WORKDIR /home/node/client
+
 RUN npm install
 # The package 'quill' breaks this
 #RUN npm audit fix --omit=dev
