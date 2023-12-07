@@ -56,6 +56,16 @@ I used to put the "unzip" step inside each Dockerfile, but then I wanted to make
 to the EXB code before building, so I now unzip at the command line and do my mods before creating the
 Docker images. It turned out this made the Dockerfiles a lot simpler too, so it was a good thing all around.
 
+#### Offline option
+
+TODO LATER
+
+I wanted to see what it's like using the "offline" version, which means adding the JSAPI.
+Refer to https://developers.arcgis.com/experience-builder/guide/install-guide/
+
+Download the API from here https://developers.arcgis.com/javascript/latest/install-and-set-up/
+
+
 ### Networking note
 
 I run this service directly on the local network (no proxy) at the default ports. You might want to run it some other way.
