@@ -3,6 +3,8 @@ ESRI ArcGIS "Experience Builder, Developer Edition" running in Docker.
 
 Esri instructions for installing are here: https://developers.arcgis.com/experience-builder/guide/install-guide/
 
+'''2023-12-07''' installed version 1.13 November 2023
+
 '''2023-02-07''' updates for version 1.10 (November 2022). This release took more work.
 
 Bumped from node 12 to node 18 (in Dockerfile.*)
@@ -25,7 +27,8 @@ node_modules/quill
 '''2022-01-18''' Updates for version 1.7. Using node version 12.
 
 I can't tell what the license requirements are on Experience Builder.
-I assume it needs to be locked down so I do not include an automatic downloader in this project for now.
+I assume it needs to be locked down so I do not include an automatic
+downloader in this project for now.
 
 ## Prerequisites
 
@@ -34,14 +37,18 @@ I assume it needs to be locked down so I do not include an automatic downloader 
 
 The "organization" account can be one that you set up with the (free)
 developer program.  Go to https://developers.esri.com/ -- the
-"personal" account you get at arcgis.com is pretty much useless because it does not allow the full range of features you need for creating content.
+"personal" account you get at arcgis.com is pretty much useless
+because it does not allow the full range of features you need for
+creating content.
 
 ## Set up
 
 ### Download and unzip
 
-Find the ZIP file at the ESRI site [Experience Builder](https://developers.arcgis.com/experience-builder/) 
-Sign in and then look in Downloads until you find Experience Builder and download the zip file arcgis-experience-builder-VERSION.zip.
+Find the ZIP file at the ESRI site
+[Experience Builder](https://developers.arcgis.com/experience-builder/) Sign in
+and then look in Downloads until you find Experience Builder and
+download the zip file arcgis-experience-builder-VERSION.zip.
 
 Unzip the downloaded file. When you are done there should be a folder here called ArcGISExperienceBuilder.
 
@@ -85,17 +92,13 @@ the end tag for the "head" block.
 This command will build new images for exb-server and exb-client.
 If you do the Matomo hack later on, you will have to do a new build.
 
-```bash
-docker-compose build
-```
+    docker compose build
 
 ## Run
 
 Currently I am using Docker Compose for this, so, to launch it I use:
 
-```bash
-docker-compose up -d
-```
+    docker compose up -d
 
 This starts two containers, "experience-builder_server_1"
 and "experience-builder_client_1". The "server" is the web server
@@ -104,9 +107,7 @@ so-called "client" just runs webpack to compile your applications.
 
 To get EXB to stop, use
 
-```bash
-docker-compose down
-```
+    docker-compose down
 
 ### Volumes for storage
 
@@ -147,9 +148,7 @@ To change the client ID later, I had to delete signininfo.json
 file from the Docker and restart it.
 With the docker running from another command line I do this:
 
-```bash
-docker exec -it exb "rm signininfo.json"
-```
+    docker exec -it exb "rm signininfo.json"
 
 Then refresh the browser connection to EXB and it should prompt again for AppId.
 
